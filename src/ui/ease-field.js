@@ -17,10 +17,6 @@ define(
       var easename = this.$el.data('easename');
       var lastValid = this.$el.data('lastvalidfn');
 
-      if (lastValid === val) {
-        return;
-      }
-
       try {
         eval('Tweenable.prototype.formula.' + easename
             + ' = function (x) {return ' + val + '}');
