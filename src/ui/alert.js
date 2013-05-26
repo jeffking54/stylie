@@ -2,6 +2,12 @@ define(['src/app', 'src/constants'], function (app, constant) {
 
   return Backbone.View.extend({
 
+    /**
+     * Subscribes to the constant.ALERT_ERROR message, which accepts a string
+     * representing the message to show to the user.  So:
+     *
+     *   publish(constant.ALERT_ERROR, ['Hello, user.']);
+     */
     'initialize': function (opts) {
       _.extend(this, opts);
       this.fadeOutTimeout_ = 0;
