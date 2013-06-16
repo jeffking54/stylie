@@ -19,6 +19,21 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'],
       return this.keyframeCollection.at(index).getAttrs();
     }
 
+    // TODO: It's really odd that the Actor Model knows about keyframe easings,
+    // but the Keyframe Model does not.  This logic should be done in the Actor
+    // Model.
+    ,'getEasingsForKeyframe': function (index) {
+      var keyframeProperty =
+          this.get('actor').getKeyframeProperty('transform', index);
+      var easingChunks = keyframeProperty.easing.split(' ');
+
+      return {
+        'x': easingChunks[0]
+        ,'y': easingChunks[1]
+        ,'r': easingChunks[2]
+      };
+    }
+
     ,'updateKeyframeFormViews': function () {
       this.keyframeCollection.updateModelFormViews();
     }

@@ -25,15 +25,17 @@ define(['src/app', 'src/constants'], function (app, constant) {
       }, this);
     }
 
-    ,'generatePathPoints': function (easeX, easeY) {
-      var keyframe1 =
-          app.collection.actors.getCurrent().getAttrsForKeyframe(0);
-      var keyframe2 =
-          app.collection.actors.getCurrent().getAttrsForKeyframe(1);
+    ,'generatePathPoints': function () {
+      var currentActorModel = app.collection.actors.getCurrent();
+      var keyframe1 = currentActorModel.getAttrsForKeyframe(0);
+      var keyframe2 = currentActorModel.getAttrsForKeyframe(1);
       var x1 = keyframe1.x;
       var y1 = keyframe1.y;
       var x2 = keyframe2.x;
       var y2 = keyframe2.y;
+      var easings = currentActorModel.getEasingsForKeyframe(1);
+      var easeX = easings.x;
+      var easeY = easings.y;
 
       var points = [];
       var from = {
@@ -58,7 +60,7 @@ define(['src/app', 'src/constants'], function (app, constant) {
       return points;
     }
 
-    ,'generatePathPrerender': function (easeX, easeY, useDimColor) {
+    ,'generatePathPrerender': function (useDimColor) {
       app.config.prerenderedPath = document.createElement('canvas');
       app.config.prerenderedPath.width =
           app.view.canvas.$canvasBG.width();
@@ -90,8 +92,7 @@ define(['src/app', 'src/constants'], function (app, constant) {
     }
 
     ,'update': function (useDimColor) {
-      this.generatePathPrerender(app.view.selectX.$el.val(),
-          app.view.selectY.$el.val(), useDimColor);
+      this.generatePathPrerender(useDimColor);
 
       this.$el[0].width = this.$el.width();
       if (app.config.isPathShowing) {
