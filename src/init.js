@@ -110,7 +110,7 @@ require([
         : 40 // TODO: Should this be a constant?
       ,'y': crosshairStartingY
       ,'r': 0
-    }, 'linear linear');
+    }, 'linear linear linear');
   });
 
   app.view.canvas = new CanvasView({
