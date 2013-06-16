@@ -27,16 +27,29 @@ define(['src/app', 'src/constants'], function (app, constant) {
 
     ,'generatePathPoints': function () {
       var currentActorModel = app.collection.actors.getCurrent();
-      var keyframe1 = currentActorModel.getAttrsForKeyframe(0);
-      var keyframe2 = currentActorModel.getAttrsForKeyframe(1);
-      var x1 = keyframe1.x;
-      var y1 = keyframe1.y;
-      var x2 = keyframe2.x;
-      var y2 = keyframe2.y;
-      var easings = currentActorModel.getEasingsForKeyframe(1);
-      var easeX = easings.x;
-      var easeY = easings.y;
+      var keyframeLength = currentActorModel.getLength();
+      var points = [];
 
+      var i;
+      for (i = 1; i < keyframeLength; ++i) {
+        var fromKeyframe = currentActorModel.getAttrsForKeyframe(i - 1);
+        var toKeyframe = currentActorModel.getAttrsForKeyframe(i);
+        var x1 = fromKeyframe.x;
+        var y1 = fromKeyframe.y;
+        var x2 = toKeyframe.x;
+        var y2 = toKeyframe.y;
+        var easings = currentActorModel.getEasingsForKeyframe(i);
+        var easeX = easings.x;
+        var easeY = easings.y;
+
+        points = points.concat(
+            this.generatePathSegment(x1, x2, y1, y2, easeX, easeY));
+      }
+
+      return points;
+    }
+
+    ,'generatePathSegment': function (x1, x2, y1, y2, easeX, easeY) {
       var points = [];
       var from = {
           'x': x1
@@ -50,10 +63,10 @@ define(['src/app', 'src/constants'], function (app, constant) {
         'x': easeX
         ,'y': easeY
       };
-      var i, point;
-      for (i = 0; i <= constant.RENDER_GRANULARITY; i++) {
+      var j, point;
+      for (j = 0; j <= constant.RENDER_GRANULARITY; j++) {
         point = Tweenable.interpolate(
-            from, to, (1 / constant.RENDER_GRANULARITY) * i, easing);
+            from, to, (1 / constant.RENDER_GRANULARITY) * j, easing);
         points.push(point);
       }
 
