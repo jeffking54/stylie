@@ -5,9 +5,9 @@ require([
     ,'src/utils'
 
     // Views
-    ,'src/ui/checkbox', 'src/ui/select', 'src/ui/auto-update-textfield'
-    ,'src/ui/ease-field', 'src/ui/crosshairs' ,'src/ui/canvas', 'src/ui/pane'
-    ,'src/ui/tabs', 'src/ui/css-output' ,'src/ui/html-input'
+    ,'src/ui/checkbox', 'src/ui/ease-select', 'src/ui/ease-field'
+    ,'src/ui/auto-update-textfield', 'src/ui/crosshairs', 'src/ui/canvas'
+    ,'src/ui/pane' ,'src/ui/tabs', 'src/ui/css-output', 'src/ui/html-input'
     ,'src/ui/keyframe-forms', 'src/ui/incrementer-field', 'src/ui/modal'
     ,'src/ui/hotkey-handler', 'src/ui/rekapi-controls', 'src/ui/alert'
 
@@ -19,9 +19,9 @@ require([
       ,constant
       ,util
 
-      ,CheckboxView, SelectView, AutoUpdateTextFieldView
-      ,EaseFieldView, CrosshairsView, CanvasView, PaneView
-      ,TabsView, CSSOutputView, HTMLInputView
+      ,CheckboxView, EaseSelectView, EaseFieldView
+      ,AutoUpdateTextFieldView, CrosshairsView, CanvasView
+      ,PaneView, TabsView, CSSOutputView, HTMLInputView
       ,KeyframeFormsView, IncrementerFieldView, ModalView
       ,HotkeyHandlerView, RekapiControlsView, AlertView
 
@@ -41,15 +41,15 @@ require([
     });
   });
 
-  app.view.selectX = new SelectView({
+  app.view.selectX = new EaseSelectView({
     '$el': $('#x-easing')
   });
 
-  app.view.selectY = new SelectView({
+  app.view.selectY = new EaseSelectView({
     '$el': $('#y-easing')
   });
 
-  app.view.selectR = new SelectView({
+  app.view.selectR = new EaseSelectView({
     '$el': $('#r-easing')
   });
 
