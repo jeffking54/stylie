@@ -7,8 +7,6 @@ define(['src/app'], function (app) {
     return [xEasing, yEasing, rEasing].join(' ');
   }
 
-  // TODO: This View is not generic enough.  It should be either be made more
-  // generic or renamed to be specific to the easing selection functionality.
   return Backbone.View.extend({
 
     'events': {

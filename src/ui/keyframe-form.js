@@ -1,5 +1,17 @@
-define(['src/app', 'src/constants', 'src/ui/incrementer-field'],
-    function (app, constant, IncrementerFieldView) {
+define([
+    'src/app'
+    ,'src/constants'
+    ,'src/ui/incrementer-field'
+    ,'src/ui/ease-select'
+
+  ], function (
+
+    app
+    ,constant
+    ,IncrementerFieldView
+    ,EaseSelectView
+
+  ) {
 
   function incrementerGeneratorHelper ($el) {
     return new IncrementerFieldView({
@@ -14,12 +26,7 @@ define(['src/app', 'src/constants', 'src/ui/incrementer-field'],
     });
   }
 
-  return Backbone.View.extend({
-
-    'events': {}
-
-    // TODO: Move this out of the View and make it private.
-    ,'KEYFRAME_TEMPLATE': [
+  var KEYFRAME_TEMPLATE = [
       '<li class="keyframe">'
         ,'<h3></h3>'
         ,'<label>'
@@ -35,16 +42,42 @@ define(['src/app', 'src/constants', 'src/ui/incrementer-field'],
           ,'<input class="quarter-width keyframe-attr-r" type="text" data-keyframeattr="r"></input>'
         ,'</label>'
       ,'</li>'
-    ].join('')
+    ].join('');
+
+  var EASE_SELECT_TEMPLATE = [
+      '<ul class="ease-select">'
+        ,'<li>'
+          ,'<label class="ease-label" for="x-easing">X:</label>'
+          ,'<select class="x-easing" data-axis="x"></select>'
+        ,'</li>'
+        ,'<li>'
+          ,'<label class="ease-label" for="y-easing">Y:</label>'
+          ,'<select class="y-easing" data-axis="y"></select>'
+        ,'</li>'
+        ,'<li>'
+          ,'<label class="ease-label" for="r-easing">R:</label>'
+          ,'<select class="r-easing" data-axis="r"></select>'
+        ,'</li>'
+      ,'</ul>'
+    ].join('');
+
+  return Backbone.View.extend({
+
+    'events': {}
 
     ,'initialize': function (opts) {
       _.extend(this, opts);
-      this.$el = $(this.KEYFRAME_TEMPLATE);
+      this.$el = $(KEYFRAME_TEMPLATE);
       this.model.keyframeForm = this;
       this.model.on('change', _.bind(this.render, this));
       this.initDOMReferences();
       this.initIncrementers();
       this.render();
+
+      // If this is not the first keyframe, add ease select controls.
+      if (this.model.collection.indexOf(this.model) > 0) {
+        this.initEaseSelects();
+      }
     }
 
     ,'initDOMReferences': function () {
@@ -60,6 +93,23 @@ define(['src/app', 'src/constants', 'src/ui/incrementer-field'],
         this.incrementerViews[$el.data('keyframeattr')] =
             incrementerGeneratorHelper.call(this, $el);
       }, this);
+    }
+
+    ,'initEaseSelects': function () {
+      this.$easeSelect = $(EASE_SELECT_TEMPLATE);
+      this.$el.append(this.$easeSelect);
+
+      this.easeSelectViewX = new EaseSelectView({
+        '$el': $('.x-easing', this.$el)
+      });
+
+      this.easeSelectViewY = new EaseSelectView({
+        '$el': $('.y-easing', this.$el)
+      });
+
+      this.easeSelectViewR = new EaseSelectView({
+        '$el': $('.r-easing', this.$el)
+      });
     }
 
     ,'render': function () {
