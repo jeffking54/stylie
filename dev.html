@@ -28,12 +28,19 @@
     </div>
     <div id="control-pane">
       <ul class="tabs">
-        <li data-target="tween-controls"><a href="#">Tween</a></li>
         <li data-target="keyframe-controls"><a href="#">Keyframes</a></li>
+        <li data-target="tween-controls"><a href="#">Tween</a></li>
         <li data-target="css-output"><a href="#">CSS</a></li>
         <li data-target="html-input"><a href="#">HTML</a></li>
       </ul>
       <ul class="tabs-contents">
+        <li id="keyframe-controls">
+          <p>
+            Manually adjust the coordinates of the keyframes.  Type new values in or press the &quot;up&quot; or &quot;down&quot; arrow keys when focused on the inputs.
+          </p>
+          <ul class="controls">
+          </ul>
+        </li>
         <li id="tween-controls">
           <p>
             Adjust the properties of the tween.
@@ -75,13 +82,6 @@
               <input id="center-to-path" type="checkbox" checked="checked">
               <label for="center-to-path">Center to path</label>
             </li>
-          </ul>
-        </li>
-        <li id="keyframe-controls">
-          <p>
-            Manually adjust the coordinates of the keyframes.  Type new values in or press the &quot;up&quot; or &quot;down&quot; arrow keys when focused on the inputs.
-          </p>
-          <ul class="controls">
           </ul>
         </li>
         <li id="css-output">
