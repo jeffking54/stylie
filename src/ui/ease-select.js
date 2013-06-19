@@ -1,12 +1,4 @@
 define(['src/app'], function (app) {
-
-  function getNewEasingString (app) {
-    var xEasing = app.view.selectX.$el.val();
-    var yEasing = app.view.selectY.$el.val();
-    var rEasing = app.view.selectR.$el.val();
-    return [xEasing, yEasing, rEasing].join(' ');
-  }
-
   return Backbone.View.extend({
 
     'events': {
@@ -28,9 +20,18 @@ define(['src/app'], function (app) {
     ,'onChange': function (evt) {
       app.collection.actors.getCurrent().modifyKeyframe(
           app.kapi.animationLength(), {},
-          { 'transform': getNewEasingString(app) });
+          { 'transform': this.getNewEasingString(app) });
+
       app.view.canvas.backgroundView.update();
       app.kapi.update();
+    }
+
+    ,'getNewEasingString': function () {
+      var xEasing = this.owner.easeSelectViewX.$el.val();
+      var yEasing = this.owner.easeSelectViewY.$el.val();
+      var rEasing = this.owner.easeSelectViewR.$el.val();
+
+      return [xEasing, yEasing, rEasing].join(' ');
     }
 
   });

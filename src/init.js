@@ -41,18 +41,6 @@ require([
     });
   });
 
-  app.view.selectX = new EaseSelectView({
-    '$el': $('#x-easing')
-  });
-
-  app.view.selectY = new EaseSelectView({
-    '$el': $('#y-easing')
-  });
-
-  app.view.selectR = new EaseSelectView({
-    '$el': $('#r-easing')
-  });
-
   app.view.hotkeyHandler = new HotkeyHandlerView({
     '$el': $(document.body)
   });

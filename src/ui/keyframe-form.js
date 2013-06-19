@@ -101,14 +101,17 @@ define([
 
       this.easeSelectViewX = new EaseSelectView({
         '$el': $('.x-easing', this.$el)
+        ,'owner': this
       });
 
       this.easeSelectViewY = new EaseSelectView({
         '$el': $('.y-easing', this.$el)
+        ,'owner': this
       });
 
       this.easeSelectViewR = new EaseSelectView({
         '$el': $('.r-easing', this.$el)
+        ,'owner': this
       });
     }
 
