@@ -18,20 +18,7 @@ define(['src/app'], function (app) {
     }
 
     ,'onChange': function (evt) {
-      app.collection.actors.getCurrent().modifyKeyframe(
-          app.kapi.animationLength(), {},
-          { 'transform': this.getNewEasingString(app) });
-
-      app.view.canvas.backgroundView.update();
-      app.kapi.update();
-    }
-
-    ,'getNewEasingString': function () {
-      var xEasing = this.owner.easeSelectViewX.$el.val();
-      var yEasing = this.owner.easeSelectViewY.$el.val();
-      var rEasing = this.owner.easeSelectViewR.$el.val();
-
-      return [xEasing, yEasing, rEasing].join(' ');
+      this.owner.updateEasingString();
     }
 
   });

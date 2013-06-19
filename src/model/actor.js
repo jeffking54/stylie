@@ -51,7 +51,7 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'],
      */
     ,'keyframe': function (millisecond, properties, opt_easing) {
       var modelProperties = _.extend({'millisecond': millisecond}, properties);
-      this.keyframeCollection.add(modelProperties);
+      this.keyframeCollection.add(modelProperties, { 'owner': this });
       var keyframeProperties = this.keyframeCollection.last().getCSS();
       this.get('actor').keyframe(millisecond, keyframeProperties, opt_easing);
     }
