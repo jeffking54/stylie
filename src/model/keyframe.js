@@ -44,6 +44,11 @@ define(['src/app', 'src/constants'], function (app, constant) {
       publish(constant.ANIMATION_LENGTH_CHANGED);
     }
 
+    ,'setEasingString': function (newEasingString) {
+      this.owner.modifyKeyframe(
+          this.get('millisecond'), {}, { 'transform': newEasingString });
+    }
+
     ,'getCSS': function () {
       return {
         'transform':

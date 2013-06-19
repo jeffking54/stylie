@@ -129,15 +129,15 @@ define([
     }
 
     ,'updateEasingString': function () {
-      var actor = this.model.owner;
       var xEasing = this.easeSelectViewX.$el.val();
       var yEasing = this.easeSelectViewY.$el.val();
       var rEasing = this.easeSelectViewR.$el.val();
       var newEasingString = [xEasing, yEasing, rEasing].join(' ');
 
-      actor.modifyKeyframe(
-          this.model.get('millisecond'), {}, { 'transform': newEasingString });
+      this.model.setEasingString(newEasingString);
 
+      // TODO: These function calls are too specific and assume that there will
+      // only ever be one actor.
       app.view.canvas.backgroundView.update();
       app.kapi.update();
     }
