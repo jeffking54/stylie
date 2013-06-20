@@ -364,8 +364,34 @@ canvas {
     padding-right: 2px;
   }
 
-    #control-pane .keyframe label {
+    #control-pane .keyframe:nth-child(1) div {
+      display: inline;
+    }
+
+    #control-pane .keyframe:nth-child(1) span {
+      float:none;
+      /* padding-right should be kept in sync with that of
+       * `#control-pane span` */
+      padding-right: 12px;
+    }
+
+    #control-pane .keyframe:nth-child(1) label {
       padding-right: 14px;
+    }
+
+    #control-pane .keyframe div {
+      margin-bottom: 12px;
+    }
+
+    #control-pane .keyframe div:last-child {
+      margin-bottom: 0;
+    }
+
+    #control-pane .keyframe span {
+      float: left;
+      line-height: 28px;
+      padding-right: 0;
+      width: 20px;
     }
 
   #control-pane span {
@@ -384,7 +410,8 @@ canvas {
     border: solid 1px #333;
     color: #fff;
     font-size: 1em;
-    width: 170px;
+    margin-left: 8px;
+    width: 208px;
   }
 
   #control-pane hr {

@@ -26,39 +26,33 @@ define([
     });
   }
 
+  // TODO: This shouldn't be an LI, it assumes too much about the calling code.
   var KEYFRAME_TEMPLATE = [
       '<li class="keyframe">'
         ,'<h3></h3>'
-        ,'<label>'
-          ,'<span>X:</span>'
-          ,'<input class="quarter-width keyframe-attr-x" type="text" data-keyframeattr="x"></input>'
-        ,'</label>'
-        ,'<label>'
-          ,'<span>Y:</span>'
-          ,'<input class="quarter-width keyframe-attr-y" type="text" data-keyframeattr="y"></input>'
-        ,'</label>'
-        ,'<label>'
-          ,'<span>R:</span>'
-          ,'<input class="quarter-width keyframe-attr-r" type="text" data-keyframeattr="r"></input>'
-        ,'</label>'
+        ,'<div>'
+          ,'<label>'
+            ,'<span>X:</span>'
+            ,'<input class="quarter-width keyframe-attr-x" type="text" data-keyframeattr="x"></input>'
+          ,'</label>'
+        ,'</div>'
+        ,'<div>'
+          ,'<label>'
+            ,'<span>Y:</span>'
+            ,'<input class="quarter-width keyframe-attr-y" type="text" data-keyframeattr="y"></input>'
+          ,'</label>'
+        ,'</div>'
+        ,'<div>'
+          ,'<label>'
+            ,'<span>R:</span>'
+            ,'<input class="quarter-width keyframe-attr-r" type="text" data-keyframeattr="r"></input>'
+          ,'</label>'
+        ,'</div>'
       ,'</li>'
     ].join('');
 
   var EASE_SELECT_TEMPLATE = [
-      '<ul class="ease-select">'
-        ,'<li>'
-          ,'<label class="ease-label" for="x-easing">X:</label>'
-          ,'<select class="x-easing" data-axis="x"></select>'
-        ,'</li>'
-        ,'<li>'
-          ,'<label class="ease-label" for="y-easing">Y:</label>'
-          ,'<select class="y-easing" data-axis="y"></select>'
-        ,'</li>'
-        ,'<li>'
-          ,'<label class="ease-label" for="r-easing">R:</label>'
-          ,'<select class="r-easing" data-axis="r"></select>'
-        ,'</li>'
-      ,'</ul>'
+      '<select class="{{property}}-easing" data-axis="{{property}}"></select>'
     ].join('');
 
   return Backbone.View.extend({
@@ -95,28 +89,28 @@ define([
       }, this);
     }
 
-    ,'isFirstKeyfame': function () {
-      return this.model.collection.indexOf(this.model) === 0;
-    }
-
     ,'initEaseSelects': function () {
-      this.$easeSelect = $(EASE_SELECT_TEMPLATE);
-      this.$el.append(this.$easeSelect);
-
       this.easeSelectViewX = new EaseSelectView({
-        '$el': $('.x-easing', this.$el)
+        '$el': $(Mustache.render(EASE_SELECT_TEMPLATE, { 'property': 'x' }))
         ,'owner': this
       });
+      this.easeSelectViewX.$el.insertAfter(this.inputX.parent());
 
       this.easeSelectViewY = new EaseSelectView({
-        '$el': $('.y-easing', this.$el)
+        '$el': $(Mustache.render(EASE_SELECT_TEMPLATE, { 'property': 'y' }))
         ,'owner': this
       });
+      this.easeSelectViewY.$el.insertAfter(this.inputY.parent());
 
       this.easeSelectViewR = new EaseSelectView({
-        '$el': $('.r-easing', this.$el)
+        '$el': $(Mustache.render(EASE_SELECT_TEMPLATE, { 'property': 'r' }))
         ,'owner': this
       });
+      this.easeSelectViewR.$el.insertAfter(this.inputR.parent());
+    }
+
+    ,'isFirstKeyfame': function () {
+      return this.model.collection.indexOf(this.model) === 0;
     }
 
     ,'render': function () {
