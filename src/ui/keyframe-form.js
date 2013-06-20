@@ -75,7 +75,7 @@ define([
       this.render();
 
       // If this is not the first keyframe, add ease select controls.
-      if (this.model.collection.indexOf(this.model) > 0) {
+      if (!this.isFirstKeyfame()) {
         this.initEaseSelects();
       }
     }
@@ -93,6 +93,10 @@ define([
         this.incrementerViews[$el.data('keyframeattr')] =
             incrementerGeneratorHelper.call(this, $el);
       }, this);
+    }
+
+    ,'isFirstKeyfame': function () {
+      return this.model.collection.indexOf(this.model) === 0;
     }
 
     ,'initEaseSelects': function () {
