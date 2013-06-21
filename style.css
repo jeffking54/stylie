@@ -47,7 +47,7 @@ textarea:focus {
   background: #585858;
 }
 
-ul.controls li {
+ul.controls > li {
   display: block;
   font-size: 1.1em;
   padding: 6px 0;
