@@ -29,25 +29,16 @@ define([
   var KEYFRAME_TEMPLATE = [
       '<li class="keyframe">'
         ,'<h3></h3>'
-        ,'<div>'
-          ,'<label>'
-            ,'<span>X:</span>'
-            ,'<input class="quarter-width keyframe-attr-x" type="text" data-keyframeattr="x"></input>'
-          ,'</label>'
-        ,'</div>'
-        ,'<div>'
-          ,'<label>'
-            ,'<span>Y:</span>'
-            ,'<input class="quarter-width keyframe-attr-y" type="text" data-keyframeattr="y"></input>'
-          ,'</label>'
-        ,'</div>'
-        ,'<div>'
-          ,'<label>'
-            ,'<span>R:</span>'
-            ,'<input class="quarter-width keyframe-attr-r" type="text" data-keyframeattr="r"></input>'
-          ,'</label>'
-        ,'</div>'
       ,'</li>'
+    ].join('');
+
+  var KEYFRAME_PROPERTY_TEMPLATE = [
+      '<div>'
+        ,'<label>'
+          ,'<span>{{propertyLabel}}:</span>'
+          ,'<input class="quarter-width keyframe-attr-{{property}}" type="text" data-keyframeattr="{{property}}"></input>'
+        ,'</label>'
+      ,'</div>'
     ].join('');
 
   var EASE_SELECT_TEMPLATE = [
@@ -61,6 +52,7 @@ define([
     ,'initialize': function (opts) {
       _.extend(this, opts);
       this.$el = $(KEYFRAME_TEMPLATE);
+      this.buildDOM();
       this.model.keyframeForm = this;
       this.model.on('change', _.bind(this.render, this));
       this.initDOMReferences();
@@ -71,6 +63,17 @@ define([
       if (!this.isFirstKeyfame()) {
         this.initEaseSelects();
       }
+    }
+
+    ,'buildDOM': function () {
+      _.each(['x', 'y', 'r'], function (property) {
+        var template = Mustache.render(KEYFRAME_PROPERTY_TEMPLATE, {
+          'property': property
+          ,'propertyLabel': property.toUpperCase()
+        });
+
+        this.$el.append($(template));
+      }, this);
     }
 
     ,'initDOMReferences': function () {
