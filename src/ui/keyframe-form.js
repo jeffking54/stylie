@@ -26,7 +26,6 @@ define([
     });
   }
 
-  // TODO: This shouldn't be an LI, it assumes too much about the calling code.
   var KEYFRAME_TEMPLATE = [
       '<li class="keyframe">'
         ,'<h3></h3>'

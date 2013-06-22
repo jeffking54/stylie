@@ -67,7 +67,7 @@ table {
     padding-bottom: 8px;
   }
 
-  tr td:nth-child(1) {
+  tr td:first-child {
     font-weight: bold;
     padding-right: 40px;
   }
@@ -364,18 +364,18 @@ canvas {
     padding-right: 2px;
   }
 
-    #control-pane .keyframe:nth-child(1) div {
+    #control-pane .keyframe:first-child div {
       display: inline;
     }
 
-    #control-pane .keyframe:nth-child(1) span {
+    #control-pane .keyframe:first-child span {
       float:none;
       /* padding-right should be kept in sync with that of
        * `#control-pane span` */
       padding-right: 12px;
     }
 
-    #control-pane .keyframe:nth-child(1) label {
+    #control-pane .keyframe:first-child label {
       padding-right: 14px;
     }
 
