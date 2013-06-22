@@ -394,6 +394,23 @@ canvas {
       width: 20px;
     }
 
+  #control-pane .button-controls {
+    margin-bottom: -12px;
+    overflow: auto;
+  }
+
+    #control-pane .button-controls .add {
+      background: none;
+      border: none;
+      color: #aaa;
+      float: right;
+      padding: 0;
+    }
+
+    #control-pane .button-controls .add:active {
+      color: #fff;
+    }
+
   #control-pane span {
     padding-right: 12px;
   }
@@ -469,6 +486,10 @@ canvas {
     color: #aaa;
     content: 'ms';
     margin-left: 2px;
+  }
+
+  #keyframe-controls ul.controls > li:first-child {
+    padding-top: 0;
   }
 
 #rekapi-canvas {
