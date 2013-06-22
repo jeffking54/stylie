@@ -59,13 +59,14 @@ define([
       this.initIncrementers();
       this.render();
 
-      // If this is not the first keyframe, add ease select controls.
       if (!this.isFirstKeyfame()) {
         this.initEaseSelects();
       }
     }
 
     ,'buildDOM': function () {
+      var isFirstKeyfame = this.isFirstKeyfame();
+
       _.each(['x', 'y', 'r'], function (property) {
         var template = Mustache.render(KEYFRAME_PROPERTY_TEMPLATE, {
           'property': property
@@ -92,23 +93,22 @@ define([
     }
 
     ,'initEaseSelects': function () {
-      this.easeSelectViewX = new EaseSelectView({
-        '$el': $(Mustache.render(EASE_SELECT_TEMPLATE, { 'property': 'x' }))
-        ,'owner': this
-      });
-      this.easeSelectViewX.$el.insertAfter(this.inputX.parent());
+      _.each(['x', 'y', 'r'], _.bind(this.initEaseSelect, this));
+    }
 
-      this.easeSelectViewY = new EaseSelectView({
-        '$el': $(Mustache.render(EASE_SELECT_TEMPLATE, { 'property': 'y' }))
-        ,'owner': this
-      });
-      this.easeSelectViewY.$el.insertAfter(this.inputY.parent());
+    ,'initEaseSelect': function (propertyName) {
+      var viewName = 'easeSelectView' + propertyName.toUpperCase();
+      var inputName = 'input'  + propertyName.toUpperCase();
+      var template = Mustache.render(EASE_SELECT_TEMPLATE, {
+          'property': propertyName
+        });
 
-      this.easeSelectViewR = new EaseSelectView({
-        '$el': $(Mustache.render(EASE_SELECT_TEMPLATE, { 'property': 'r' }))
+      var view = this[viewName] = new EaseSelectView({
+        '$el': $(template)
         ,'owner': this
       });
-      this.easeSelectViewR.$el.insertAfter(this.inputR.parent());
+
+      view.$el.insertAfter(this[inputName].parent());
     }
 
     ,'isFirstKeyfame': function () {
