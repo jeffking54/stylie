@@ -58,10 +58,6 @@ define([
       this.initDOMReferences();
       this.initIncrementers();
       this.render();
-
-      if (!this.isFirstKeyfame()) {
-        this.initEaseSelects();
-      }
     }
 
     ,'buildDOM': function () {
@@ -73,7 +69,14 @@ define([
           ,'propertyLabel': property.toUpperCase()
         });
 
-        this.$el.append($(template));
+        var $template = $(template);
+
+        if (!isFirstKeyfame) {
+          var easeSelectView = this.initEaseSelect(property);
+          $template.append(easeSelectView.$el);
+        }
+
+        this.$el.append($template);
       }, this);
     }
 
@@ -92,11 +95,7 @@ define([
       }, this);
     }
 
-    ,'initEaseSelects': function () {
-      _.each(['x', 'y', 'r'], _.bind(this.initEaseSelect, this));
-    }
-
-    ,'initEaseSelect': function (propertyName) {
+    ,'initEaseSelect': function (propertyName, previousSibling) {
       var viewName = 'easeSelectView' + propertyName.toUpperCase();
       var inputName = 'input'  + propertyName.toUpperCase();
       var template = Mustache.render(EASE_SELECT_TEMPLATE, {
@@ -108,7 +107,7 @@ define([
         ,'owner': this
       });
 
-      view.$el.insertAfter(this[inputName].parent());
+      return view;
     }
 
     ,'isFirstKeyfame': function () {
