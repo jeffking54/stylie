@@ -66,10 +66,6 @@ require([
   var halfCrossHairHeight = $('#crosshairs .crosshair:first').height() / 2;
   var crosshairStartingY = ($win.height() / 2) - halfCrossHairHeight;
 
-  app.view.keyframeForms = new KeyframeFormsView({
-    '$el': $('#keyframe-controls')
-  });
-
   app.view.crosshairs = new CrosshairsView({
     '$el': $('#crosshairs')
   });
@@ -89,6 +85,11 @@ require([
 
   var winWidth = $win.width();
   var currentActorModel = app.collection.actors.getCurrent();
+
+  app.view.keyframeForms = new KeyframeFormsView({
+    '$el': $('#keyframe-controls')
+    ,'model': currentActorModel
+  });
 
   // Create the initial keyframes.
   _.each([0, constant.INITIAL_ANIMATION_DURATION], function (millisecond, i) {

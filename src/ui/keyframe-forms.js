@@ -1,4 +1,6 @@
-define(['src/app', 'src/ui/keyframe-form'], function (app, KeyframeForm) {
+define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
+    function (app, constant, KeyframeForm) {
+
   return Backbone.View.extend({
 
     'events': {
@@ -28,18 +30,22 @@ define(['src/app', 'src/ui/keyframe-form'], function (app, KeyframeForm) {
     }
 
     ,'createKeyframe': function (evt) {
-      var currentActor = app.collection.actors.getCurrent();
-      var lastKeyframeIndex = currentActor.getLength() - 1;
+      var model = this.model;
+      var lastKeyframeIndex = model.getLength() - 1;
       var lastKeyframeMillisecond =
-          currentActor.getMillisecondOfKeyframe(lastKeyframeIndex);
+          model.getMillisecondOfKeyframe(lastKeyframeIndex);
       var lastKeyframeAttrs =
-          currentActor.getAttrsForKeyframe(lastKeyframeIndex);
+          model.getAttrsForKeyframe(lastKeyframeIndex);
+      var newKeyframeMillisecond =
+          lastKeyframeMillisecond + constant.NEW_KEYFRAME_MILLISECOND_OFFSET;
 
-      currentActor.keyframe(lastKeyframeMillisecond + 1000, {
-        'x': lastKeyframeAttrs.x + 200
+      model.keyframe(newKeyframeMillisecond, {
+        'x': lastKeyframeAttrs.x + constant.NEW_KEYFRAME_X_OFFSET
         ,'y': lastKeyframeAttrs.y
         ,'r': 0
       }, 'linear linear linear');
+
+      app.view.canvas.backgroundView.update();
     }
 
   });

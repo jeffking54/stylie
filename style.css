@@ -452,7 +452,7 @@ canvas {
     color: #fff;
     font-size: 1em;
     margin-left: 8px;
-    width: 208px;
+    width: 200px;
   }
 
   #control-pane hr {
@@ -490,7 +490,7 @@ canvas {
   }
 
   #control-pane input.quarter-width {
-    width: 50px;
+    width: 44px;
   }
 
 #tween-controls {
@@ -501,6 +501,11 @@ canvas {
   #tween-controls input.error {
     background: #f55;
   }
+
+#keyframe-controls {
+  overflow: auto;
+  max-height: 400px;
+}
 
   #keyframe-controls hr {
     margin-top: 12px;
