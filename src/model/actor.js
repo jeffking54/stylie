@@ -20,7 +20,7 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'],
     }
 
     ,'getMillisecondOfKeyframe': function (index) {
-      return this.keyframeCollection.at(index).get('millisecond');
+      return +this.keyframeCollection.at(index).get('millisecond');
     }
 
     // TODO: It's really odd that the Actor Model knows about keyframe easings,

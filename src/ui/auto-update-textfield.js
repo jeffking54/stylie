@@ -3,6 +3,7 @@ define(function () {
   // Bindable event handlers:
   //   onArrowUp()
   //   onArrowDown()
+  //   onEnterDown()
   //   onValReenter(val)
   return Backbone.View.extend({
 
@@ -23,12 +24,14 @@ define(function () {
     }
 
     ,'onKeydown': function (evt) {
-      var which = evt.which;
+      var which = +evt.which;
 
-      if (+which === 38 && this.onArrowUp) { // up
-        this.onArrowUp();
-      } else if (+which === 40 && this.onArrowDown) { // down
-        this.onArrowDown();
+      if (which === 38 && this.onArrowUp) { // up
+        this.onArrowUp(evt);
+      } else if (which === 40 && this.onArrowDown) { // down
+        this.onArrowDown(evt);
+      } else if (which === 13 && this.onEnterDown) { // enter
+        this.onEnterDown(evt);
       }
     }
 

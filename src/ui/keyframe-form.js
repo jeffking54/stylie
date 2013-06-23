@@ -59,6 +59,7 @@ define([
       _.extend(this, opts);
 
       this.isEditingMillisecond = false;
+      this.canEditMillisecond = !this.isFirstKeyfame();
 
       this.$el = $(KEYFRAME_TEMPLATE);
       this.buildDOM();
@@ -109,6 +110,7 @@ define([
             });
         this.millisecondIncrementer = new IncrementerFieldView({
           '$el': $(template)
+          ,'onEnterDown': _.bind(this.onMillisecondIncrementerEnter, this)
         });
       }
     }
@@ -132,8 +134,17 @@ define([
       return this.model.collection.indexOf(this.model) === 0;
     }
 
+    ,'onMillisecondIncrementerEnter': function () {
+      this.millisecondIncrementer.$el.detach();
+      var newMillisecond = this.millisecondIncrementer.$el.val();
+      this.updateMillisecond(newMillisecond);
+      this.renderHeader();
+      this.isEditingMillisecond = false;
+    }
+
     ,'render': function () {
-      this.$header.text(this.model.get('millisecond'));
+      this.renderHeader();
+
       if (this.model.get('x') !== parseFloat(this.$inputX.val())) {
         this.$inputX.val(this.model.get('x'));
       }
@@ -143,6 +154,10 @@ define([
       if (this.model.get('r') !== parseFloat(this.$inputR.val())) {
         this.$inputR.val(this.model.get('r'));
       }
+    }
+
+    ,'renderHeader': function () {
+      this.$header.text(this.model.get('millisecond'));
     }
 
     ,'updateEasingString': function () {
@@ -159,8 +174,15 @@ define([
       app.kapi.update();
     }
 
+    ,'updateMillisecond': function (newMillisecond) {
+      if (!isNaN(newMillisecond)) {
+        var validMillisecond = Math.abs(newMillisecond);
+        this.model.moveKeyframe(newMillisecond);
+      }
+    }
+
     ,'editMillisecond': function () {
-      if (this.isEditingMillisecond) {
+      if (this.isEditingMillisecond || !this.canEditMillisecond) {
         return;
       }
 
@@ -169,6 +191,8 @@ define([
       this.$header
         .empty()
         .append(this.millisecondIncrementer.$el);
+
+      this.millisecondIncrementer.$el.focus();
     }
 
   });
