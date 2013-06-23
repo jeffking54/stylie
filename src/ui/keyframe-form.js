@@ -45,12 +45,21 @@ define([
       '<select class="{{property}}-easing" data-axis="{{property}}"></select>'
     ].join('');
 
+  var MILLISECOND_INPUT_TEMPLATE = [
+      '<input class="millisecond-input" type="text" value="{{value}}">'
+    ].join('');
+
   return Backbone.View.extend({
 
-    'events': {}
+    'events': {
+      'click h3': 'editMillisecond'
+    }
 
     ,'initialize': function (opts) {
       _.extend(this, opts);
+
+      this.isEditingMillisecond = false;
+
       this.$el = $(KEYFRAME_TEMPLATE);
       this.buildDOM();
       this.model.keyframeForm = this;
@@ -81,18 +90,27 @@ define([
     }
 
     ,'initDOMReferences': function () {
-      this.header = this.$el.find('h3');
-      this.inputX = this.$el.find('.keyframe-attr-x');
-      this.inputY = this.$el.find('.keyframe-attr-y');
-      this.inputR = this.$el.find('.keyframe-attr-r');
+      this.$header = this.$el.find('h3');
+      this.$inputX = this.$el.find('.keyframe-attr-x');
+      this.$inputY = this.$el.find('.keyframe-attr-y');
+      this.$inputR = this.$el.find('.keyframe-attr-r');
     }
 
     ,'initIncrementers': function () {
       this.incrementerViews = {};
-      _.each([this.inputX, this.inputY, this.inputR], function ($el) {
+      _.each([this.$inputX, this.$inputY, this.$inputR], function ($el) {
         this.incrementerViews[$el.data('keyframeattr')] =
             incrementerGeneratorHelper.call(this, $el);
       }, this);
+
+      if (!this.isFirstKeyfame()) {
+        var template = Mustache.render(MILLISECOND_INPUT_TEMPLATE, {
+              'value': this.model.get('millisecond')
+            });
+        this.millisecondIncrementer = new IncrementerFieldView({
+          '$el': $(template)
+        });
+      }
     }
 
     ,'initEaseSelect': function (propertyName, previousSibling) {
@@ -115,15 +133,15 @@ define([
     }
 
     ,'render': function () {
-      this.header.text(this.model.get('millisecond'));
-      if (this.model.get('x') !== parseFloat(this.inputX.val())) {
-        this.inputX.val(this.model.get('x'));
+      this.$header.text(this.model.get('millisecond'));
+      if (this.model.get('x') !== parseFloat(this.$inputX.val())) {
+        this.$inputX.val(this.model.get('x'));
       }
-      if (this.model.get('y') !== parseFloat(this.inputY.val())) {
-        this.inputY.val(this.model.get('y'));
+      if (this.model.get('y') !== parseFloat(this.$inputY.val())) {
+        this.$inputY.val(this.model.get('y'));
       }
-      if (this.model.get('r') !== parseFloat(this.inputR.val())) {
-        this.inputR.val(this.model.get('r'));
+      if (this.model.get('r') !== parseFloat(this.$inputR.val())) {
+        this.$inputR.val(this.model.get('r'));
       }
     }
 
@@ -139,6 +157,18 @@ define([
       // only ever be one actor.
       app.view.canvas.backgroundView.update();
       app.kapi.update();
+    }
+
+    ,'editMillisecond': function () {
+      if (this.isEditingMillisecond) {
+        return;
+      }
+
+      this.isEditingMillisecond = true;
+
+      this.$header
+        .empty()
+        .append(this.millisecondIncrementer.$el);
     }
 
   });

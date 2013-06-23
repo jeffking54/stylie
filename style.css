@@ -364,6 +364,10 @@ canvas {
     color: #fff;
   }
 
+    #control-pane .millisecond-input {
+      width: 65px;
+    }
+
   #control-pane label {
     padding-right: 2px;
   }
