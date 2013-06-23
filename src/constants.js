@@ -7,6 +7,7 @@ define(function () {
     ,'UPDATE_CSS_OUTPUT': 'update-css-output'
     ,'ANIMATION_LENGTH_CHANGED': 'animation-length-changed'
     ,'ALERT_ERROR': 'error-alert'
+    ,'KEYFRAME_ORDER_CHANGED': 'keyframe-order-changed'
 
     ,'INITIAL_ANIMATION_DURATION': 2000
     ,'RENDER_GRANULARITY': 100

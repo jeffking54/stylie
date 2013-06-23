@@ -46,6 +46,11 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'],
       this.keyframeCollection.updateModelCrosshairViews();
     }
 
+    ,'refreshKeyframeOrder': function () {
+      this.keyframeCollection.sort();
+      publish(constant.KEYFRAME_ORDER_CHANGED);
+    }
+
     // Kapi encapsulation methods
 
     /**

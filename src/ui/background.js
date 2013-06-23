@@ -9,8 +9,9 @@ define(['src/app', 'src/constants'], function (app, constant) {
         ,'width': opts.width
       });
 
-      subscribe(constant.PATH_CHANGED,
-          _.bind(this.update, this));
+      var boundUpdate = _.bind(this.update, this);
+      subscribe(constant.PATH_CHANGED, boundUpdate);
+      subscribe(constant.KEYFRAME_ORDER_CHANGED, boundUpdate);
     }
 
     ,'resize': function (dims) {

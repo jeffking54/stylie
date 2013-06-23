@@ -14,6 +14,10 @@ define(['src/app', 'src/model/keyframe', 'src/ui/keyframe'],
       });
     }
 
+    ,'comparator': function (keyframeModel) {
+      return keyframeModel.get('millisecond');
+    }
+
     ,'updateModelFormViews': function () {
       if (!this.models[0].keyframeForm) {
         return;

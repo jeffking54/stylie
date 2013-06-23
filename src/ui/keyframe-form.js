@@ -139,6 +139,7 @@ define([
       var newMillisecond = this.millisecondIncrementer.$el.val();
       this.updateMillisecond(newMillisecond);
       this.renderHeader();
+      this.owner.model.refreshKeyframeOrder();
       this.isEditingMillisecond = false;
     }
 
@@ -176,8 +177,8 @@ define([
 
     ,'updateMillisecond': function (newMillisecond) {
       if (!isNaN(newMillisecond)) {
-        var validMillisecond = Math.abs(newMillisecond);
-        this.model.moveKeyframe(newMillisecond);
+        var validMillisecond = Math.abs(+newMillisecond);
+        this.model.moveKeyframe(validMillisecond);
       }
     }
 
