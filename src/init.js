@@ -67,7 +67,7 @@ require([
   var crosshairStartingY = ($win.height() / 2) - halfCrossHairHeight;
 
   app.view.keyframeForms = new KeyframeFormsView({
-    '$el': $('#keyframe-controls .controls')
+    '$el': $('#keyframe-controls')
   });
 
   app.view.crosshairs = new CrosshairsView({

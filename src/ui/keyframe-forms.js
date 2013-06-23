@@ -1,7 +1,11 @@
-define(['src/ui/keyframe-form'], function (KeyframeForm) {
+define(['src/app', 'src/ui/keyframe-form'], function (app, KeyframeForm) {
   return Backbone.View.extend({
 
-    'initialize': function (opts) {
+    'events': {
+      'click .add button': 'createKeyframe'
+    }
+
+    ,'initialize': function (opts) {
       _.extend(this, opts);
       this.keyframeForms = {};
     }
@@ -12,14 +16,30 @@ define(['src/ui/keyframe-form'], function (KeyframeForm) {
         ,'model': model
       });
 
+      this.$formsList = this.$el.find('ul.controls');
       this.keyframeForms[keyframeForm.cid] = keyframeForm;
-      this.$el.append(keyframeForm.$el);
+      this.$formsList.append(keyframeForm.$el);
     }
 
     ,'render': function () {
       _.each(this.keyframeForms, function (view) {
         view.render();
       });
+    }
+
+    ,'createKeyframe': function (evt) {
+      var currentActor = app.collection.actors.getCurrent();
+      var lastKeyframeIndex = currentActor.getLength() - 1;
+      var lastKeyframeMillisecond =
+          currentActor.getMillisecondOfKeyframe(lastKeyframeIndex);
+      var lastKeyframeAttrs =
+          currentActor.getAttrsForKeyframe(lastKeyframeIndex);
+
+      currentActor.keyframe(lastKeyframeMillisecond + 1000, {
+        'x': lastKeyframeAttrs.x + 200
+        ,'y': lastKeyframeAttrs.y
+        ,'r': 0
+      }, 'linear linear linear');
     }
 
   });

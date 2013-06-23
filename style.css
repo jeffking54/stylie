@@ -429,7 +429,7 @@ canvas {
       color: #ddd;
     }
 
-    #control-pane .button-controls .add {
+    #control-pane .button-controls .add button {
       background: none;
       border: none;
       padding: 0;
