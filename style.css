@@ -47,6 +47,10 @@ textarea:focus {
   background: #585858;
 }
 
+ul.controls {
+  clear: both;
+}
+
 ul.controls > li {
   display: block;
   font-size: 1.1em;
@@ -395,20 +399,40 @@ canvas {
     }
 
   #control-pane .button-controls {
+    float: right;
     margin-bottom: -12px;
     overflow: auto;
   }
 
+    #control-pane .button-controls label {
+      float: right;
+    }
+
+    #control-pane .button-controls label,
+    #control-pane .button-controls button {
+      color: #aaa;
+    }
+
+    #control-pane .button-controls span {
+      padding-right: 6px;
+      position: relative;
+      top: -2px;
+      visibility: hidden;
+    }
+
+    #control-pane .button-controls:hover span {
+      visibility: visible;
+    }
+
+    #control-pane .button-controls label:active,
+    #control-pane .button-controls button:active {
+      color: #ddd;
+    }
+
     #control-pane .button-controls .add {
       background: none;
       border: none;
-      color: #aaa;
-      float: right;
       padding: 0;
-    }
-
-    #control-pane .button-controls .add:active {
-      color: #fff;
     }
 
   #control-pane span {
