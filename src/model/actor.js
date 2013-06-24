@@ -1,10 +1,24 @@
-define(['src/app', 'src/constants', 'src/collection/keyframes'],
-    function (app, constant, KeyframeCollection) {
+define(['src/app', 'src/constants', 'src/collection/keyframes'
+    ,'src/ui/keyframe-forms', 'src/ui/crosshairs'],
+
+    function (app, constant, KeyframeCollection
+      ,KeyframeFormsView, CrosshairsView) {
+
   return Backbone.Model.extend({
 
     'initialize': function (attrs, opts) {
       _.extend(this, opts);
       this.keyframeCollection = new KeyframeCollection();
+
+      this.keyframeFormsView = new KeyframeFormsView({
+        '$el': $('#keyframe-controls')
+        ,'model': this
+      });
+
+      this.crosshairsView = new CrosshairsView({
+        '$el': $('#crosshairs')
+        ,'model': this
+      });
     }
 
     ,'getLength': function () {

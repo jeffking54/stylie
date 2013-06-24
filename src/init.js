@@ -6,10 +6,10 @@ require([
 
     // Views
     ,'src/ui/checkbox', 'src/ui/ease-select', 'src/ui/ease-field'
-    ,'src/ui/auto-update-textfield', 'src/ui/crosshairs', 'src/ui/canvas'
-    ,'src/ui/pane' ,'src/ui/tabs', 'src/ui/css-output', 'src/ui/html-input'
-    ,'src/ui/keyframe-forms', 'src/ui/incrementer-field', 'src/ui/modal'
-    ,'src/ui/hotkey-handler', 'src/ui/rekapi-controls', 'src/ui/alert'
+    ,'src/ui/auto-update-textfield', 'src/ui/canvas', 'src/ui/pane'
+    ,'src/ui/tabs', 'src/ui/css-output', 'src/ui/html-input'
+    ,'src/ui/incrementer-field', 'src/ui/modal', 'src/ui/hotkey-handler'
+    ,'src/ui/rekapi-controls', 'src/ui/alert'
 
     // Collections
     ,'src/collection/actors'
@@ -20,10 +20,10 @@ require([
       ,util
 
       ,CheckboxView, EaseSelectView, EaseFieldView
-      ,AutoUpdateTextFieldView, CrosshairsView, CanvasView
-      ,PaneView, TabsView, CSSOutputView, HTMLInputView
-      ,KeyframeFormsView, IncrementerFieldView, ModalView
-      ,HotkeyHandlerView, RekapiControlsView, AlertView
+      ,AutoUpdateTextFieldView, CanvasView, PaneView
+      ,TabsView, CSSOutputView, HTMLInputView
+      ,IncrementerFieldView, ModalView, HotkeyHandlerView
+      ,RekapiControlsView, AlertView
 
       ,ActorCollection
 
@@ -66,10 +66,6 @@ require([
   var halfCrossHairHeight = $('#crosshairs .crosshair:first').height() / 2;
   var crosshairStartingY = ($win.height() / 2) - halfCrossHairHeight;
 
-  app.view.crosshairs = new CrosshairsView({
-    '$el': $('#crosshairs')
-  });
-
   app.kapi = new Kapi({
     'context': document.getElementById('rekapi-canvas')
     ,'height': $win.height()
@@ -85,11 +81,6 @@ require([
 
   var winWidth = $win.width();
   var currentActorModel = app.collection.actors.getCurrent();
-
-  app.view.keyframeForms = new KeyframeFormsView({
-    '$el': $('#keyframe-controls')
-    ,'model': currentActorModel
-  });
 
   // Create the initial keyframes.
   _.each([0, constant.INITIAL_ANIMATION_DURATION], function (millisecond, i) {

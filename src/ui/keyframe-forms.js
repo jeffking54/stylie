@@ -12,6 +12,12 @@ define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
       this.keyframeForms = {};
     }
 
+    ,'render': function () {
+      _.each(this.keyframeForms, function (view) {
+        view.render();
+      });
+    }
+
     ,'addKeyframeView': function (model) {
       var keyframeForm = new KeyframeForm({
         'owner': this
@@ -21,12 +27,6 @@ define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
       this.$formsList = this.$el.find('ul.controls');
       this.keyframeForms[keyframeForm.cid] = keyframeForm;
       this.$formsList.append(keyframeForm.$el);
-    }
-
-    ,'render': function () {
-      _.each(this.keyframeForms, function (view) {
-        view.render();
-      });
     }
 
     ,'createKeyframe': function (evt) {
