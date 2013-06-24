@@ -1,5 +1,5 @@
 define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
-    function (app, constant, KeyframeForm) {
+    function (app, constant, KeyframeFormView) {
 
   return Backbone.View.extend({
 
@@ -19,14 +19,14 @@ define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
     }
 
     ,'addKeyframeView': function (model) {
-      var keyframeForm = new KeyframeForm({
+      var keyframeFormView = new KeyframeFormView({
         'owner': this
         ,'model': model
       });
 
       this.$formsList = this.$el.find('ul.controls');
-      this.keyframeForms[keyframeForm.cid] = keyframeForm;
-      this.$formsList.append(keyframeForm.$el);
+      this.keyframeForms[keyframeFormView.cid] = keyframeFormView;
+      this.$formsList.append(keyframeFormView.$el);
     }
 
     ,'createKeyframe': function (evt) {
@@ -46,6 +46,14 @@ define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
       }, 'linear linear linear');
 
       app.view.canvas.backgroundView.update();
+    }
+
+    ,'reorderKeyframeFormViews': function () {
+      this.$formsList.children().detach();
+      var keyframeFormViews = this.model.getKeyframeFormViews();
+      _.each(keyframeFormViews, function (keyframeFormView) {
+        this.$formsList.append(keyframeFormView.$el);
+      }, this);
     }
 
   });

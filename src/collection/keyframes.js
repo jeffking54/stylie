@@ -18,12 +18,12 @@ define(['src/app', 'src/model/keyframe'], function (app, KeyframeModel) {
     }
 
     ,'updateModelFormViews': function () {
-      if (!this.models[0].keyframeForm) {
+      if (!this.models[0].keyframeFormView) {
         return;
       }
 
       this.each(function (model) {
-        model.keyframeForm.render();
+        model.keyframeFormView.render();
       });
     }
 

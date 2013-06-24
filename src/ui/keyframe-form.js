@@ -63,7 +63,7 @@ define([
 
       this.$el = $(KEYFRAME_TEMPLATE);
       this.buildDOM();
-      this.model.keyframeForm = this;
+      this.model.keyframeFormView = this;
       this.model.on('change', _.bind(this.render, this));
       this.initDOMReferences();
       this.initIncrementers();

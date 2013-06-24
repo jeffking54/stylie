@@ -37,6 +37,10 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
       return +this.keyframeCollection.at(index).get('millisecond');
     }
 
+    ,'getKeyframeFormViews': function () {
+      return _.pluck(this.keyframeCollection.models, 'keyframeFormView');
+    }
+
     // TODO: It's really odd that the Actor Model knows about keyframe easings,
     // but the Keyframe Model does not.  This logic should be done in the Actor
     // Model.
@@ -62,6 +66,7 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
 
     ,'refreshKeyframeOrder': function () {
       this.keyframeCollection.sort();
+      this.keyframeFormsView.reorderKeyframeFormViews();
       publish(constant.KEYFRAME_ORDER_CHANGED);
     }
 
