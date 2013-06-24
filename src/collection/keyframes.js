@@ -5,11 +5,12 @@ define(['src/app', 'src/model/keyframe'], function (app, KeyframeModel) {
     'model': KeyframeModel
 
     ,'initialize': function (models, opts) {
+      _.extend(this, opts);
 
-      this.on('add', function (model) {
-        model.owner.crosshairsView.addCrosshairView(model);
-        model.owner.keyframeFormsView.addKeyframeView(model);
-      });
+      this.on('add', _.bind(function (model) {
+        this.owner.crosshairsView.addCrosshairView(model);
+        this.owner.keyframeFormsView.addKeyframeView(model);
+      }, this));
     }
 
     ,'comparator': function (keyframeModel) {

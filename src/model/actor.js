@@ -8,7 +8,7 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
 
     'initialize': function (attrs, opts) {
       _.extend(this, opts);
-      this.keyframeCollection = new KeyframeCollection();
+      this.keyframeCollection = new KeyframeCollection([], {'owner': this});
 
       this.keyframeFormsView = new KeyframeFormsView({
         '$el': $('#keyframe-controls')
