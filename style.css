@@ -299,29 +299,14 @@ canvas {
     width: 40px;
   }
 
-  .crosshair.from {
-    left: 25px;
-  }
-
-  .crosshair.to {
-    left: 435px;
-  }
-
     .crosshair .dashmark {
+      background: #0c0;
       height: 2px;
       left: 0;
       position: absolute;
       top: 0;
       width: 2px;
     }
-
-      .from .dashmark {
-        background: #0c0;
-      }
-
-      .to .dashmark {
-        background: #f00;
-      }
 
     .crosshair .dashmark.horiz {
       top: 19px;
