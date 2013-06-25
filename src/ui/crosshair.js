@@ -12,7 +12,7 @@ define(['src/app', 'src/constants', 'src/utils'],
     ,'initialize': function (opts) {
       _.extend(this, opts);
       this.$el.dragon({
-        'within': $('#scaffolding-area')
+        'within': this.owner.$el.parent()
         ,'dragStart': _.bind(this.dragStart, this)
         ,'dragEnd': _.bind(this.dragEnd, this)
       });

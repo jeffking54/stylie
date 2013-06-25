@@ -21,6 +21,7 @@ define(['src/app', 'src/ui/crosshair'], function (app, CrosshairView) {
 
     'initialize': function (opts) {
       _.extend(this, opts);
+      this.crosshairViews = {};
     }
 
     ,'addCrosshairView': function (model) {
@@ -32,9 +33,10 @@ define(['src/app', 'src/ui/crosshair'], function (app, CrosshairView) {
 
       this.$el.append($el);
 
-      var crosshairView = new CrosshairView({
+      this.crosshairViews[model.cid] = new CrosshairView({
         '$el': $el
         ,'model': model
+        ,'owner': this
       });
     }
 
