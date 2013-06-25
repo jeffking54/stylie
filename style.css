@@ -278,7 +278,7 @@ canvas {
   float: left;
 }
 
-#crosshairs {
+#scaffolding-area {
   background: url(img/ui/bg_grid.png);
   float: left;
   margin: 0 auto;
@@ -286,11 +286,11 @@ canvas {
   position: relative;
 }
 
-  #crosshairs canvas {
+  #scaffolding-area canvas {
     float: left;
   }
 
-  #crosshairs .crosshair {
+  #scaffolding-area .crosshair {
     cursor: move;
     height: 40px;
     margin: -20px;
