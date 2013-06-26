@@ -28,5 +28,14 @@ define(['src/app', 'src/ui/crosshair'], function (app, CrosshairView) {
       });
     }
 
+    ,'reorderCrosshairViews': function () {
+      this.$el.children().detach();
+      var crosshairViews = this.model.getCrosshairViews();
+      _.each(crosshairViews, function (crosshairView) {
+        this.$el.append(crosshairView.$el);
+      }, this);
+    }
+
+
   });
 });

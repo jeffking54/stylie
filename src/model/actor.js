@@ -41,6 +41,10 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
       return _.pluck(this.keyframeCollection.models, 'keyframeFormView');
     }
 
+    ,'getCrosshairViews': function () {
+      return _.pluck(this.keyframeCollection.models, 'crosshairView');
+    }
+
     // TODO: It's really odd that the Actor Model knows about keyframe easings,
     // but the Keyframe Model does not.  This logic should be done in the Actor
     // Model.
@@ -67,6 +71,7 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
     ,'refreshKeyframeOrder': function () {
       this.keyframeCollection.sort();
       this.keyframeFormsView.reorderKeyframeFormViews();
+      this.crosshairsView.reorderCrosshairViews();
       publish(constant.KEYFRAME_ORDER_CHANGED);
     }
 
