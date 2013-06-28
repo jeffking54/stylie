@@ -29,6 +29,8 @@ define([
   var KEYFRAME_TEMPLATE = [
       '<li class="keyframe">'
         ,'<h3></h3>'
+        ,'<div class="pinned-button-array">'
+        ,'</div>'
       ,'</li>'
     ].join('');
 
@@ -39,6 +41,13 @@ define([
           ,'<input class="quarter-width keyframe-attr-{{property}}" type="text" data-keyframeattr="{{property}}"></input>'
         ,'</label>'
       ,'</div>'
+    ].join('');
+
+  var REMOVE_KEYFRAME_BUTTON = [
+      '<label class="remove">'
+        ,'<span>Remove this keyframe</span>'
+        ,'<button class="icon icon-remove">&nbsp;</button>'
+      ,'</label>'
     ].join('');
 
   var EASE_SELECT_TEMPLATE = [
@@ -62,16 +71,21 @@ define([
       this.canEditMillisecond = !this.isFirstKeyfame();
 
       this.$el = $(KEYFRAME_TEMPLATE);
+      this.initDOMReferences();
       this.buildDOM();
       this.model.keyframeFormView = this;
       this.model.on('change', _.bind(this.render, this));
-      this.initDOMReferences();
       this.initIncrementers();
       this.render();
     }
 
     ,'buildDOM': function () {
       var isFirstKeyfame = this.isFirstKeyfame();
+
+      if (this.isRemovable()) {
+        var $template = $(Mustache.render(REMOVE_KEYFRAME_BUTTON));
+        this.$pinnedButtonArray.append($template);
+      }
 
       _.each(['x', 'y', 'r'], function (property) {
         var template = Mustache.render(KEYFRAME_PROPERTY_TEMPLATE, {
@@ -92,6 +106,7 @@ define([
 
     ,'initDOMReferences': function () {
       this.$header = this.$el.find('h3');
+      this.$pinnedButtonArray = this.$el.find('.pinned-button-array');
       this.$inputX = this.$el.find('.keyframe-attr-x');
       this.$inputY = this.$el.find('.keyframe-attr-y');
       this.$inputR = this.$el.find('.keyframe-attr-r');
@@ -132,6 +147,10 @@ define([
 
     ,'isFirstKeyfame': function () {
       return this.model.collection.indexOf(this.model) === 0;
+    }
+
+    ,'isRemovable': function () {
+      return this.model.collection.indexOf(this.model) > 1;
     }
 
     ,'onMillisecondIncrementerEnter': function () {

@@ -373,7 +373,12 @@ canvas {
     }
 
     #control-pane .keyframe div {
+      clear: both;
       margin-bottom: 12px;
+    }
+
+    #control-pane .keyframe .pinned-button-array {
+      margin: -28px 0 12px 0;
     }
 
     #control-pane .keyframe div:last-child {
@@ -381,44 +386,43 @@ canvas {
     }
 
     #control-pane .keyframe span {
-      float: left;
       line-height: 28px;
       padding-right: 0;
       width: 20px;
     }
 
-  #control-pane .button-controls {
+  #control-pane .pinned-button-array {
     float: right;
     margin-bottom: -12px;
     overflow: auto;
   }
 
-    #control-pane .button-controls label {
+    #control-pane .pinned-button-array label {
       float: right;
     }
 
-    #control-pane .button-controls label,
-    #control-pane .button-controls button {
+    #control-pane .pinned-button-array label,
+    #control-pane .pinned-button-array button {
       color: #aaa;
     }
 
-    #control-pane .button-controls span {
+    #control-pane .pinned-button-array span {
       padding-right: 6px;
       position: relative;
       top: -2px;
       visibility: hidden;
     }
 
-    #control-pane .button-controls:hover span {
+    #control-pane .pinned-button-array:hover span {
       visibility: visible;
     }
 
-    #control-pane .button-controls label:active,
-    #control-pane .button-controls button:active {
+    #control-pane .pinned-button-array label:active,
+    #control-pane .pinned-button-array button:active {
       color: #ddd;
     }
 
-    #control-pane .button-controls .add button {
+    #control-pane .pinned-button-array  button {
       background: none;
       border: none;
       padding: 0;
