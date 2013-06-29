@@ -62,6 +62,7 @@ define([
 
     'events': {
       'click h3': 'editMillisecond'
+      ,'click .remove button': 'removeKeyframe'
     }
 
     ,'initialize': function (opts) {
@@ -100,6 +101,7 @@ define([
           $template.append(easeSelectView.$el);
         }
 
+        this['$input' + property.toUpperCase()] = $template;
         this.$el.append($template);
       }, this);
     }
@@ -107,12 +109,11 @@ define([
     ,'initDOMReferences': function () {
       this.$header = this.$el.find('h3');
       this.$pinnedButtonArray = this.$el.find('.pinned-button-array');
-      this.$inputX = this.$el.find('.keyframe-attr-x');
-      this.$inputY = this.$el.find('.keyframe-attr-y');
-      this.$inputR = this.$el.find('.keyframe-attr-r');
     }
 
     ,'initIncrementers': function () {
+      // TODO: These should be direct members of this View, not properties of
+      // an Object attached to the View.
       this.incrementerViews = {};
       _.each([this.$inputX, this.$inputY, this.$inputR], function ($el) {
         this.incrementerViews[$el.data('keyframeattr')] =
@@ -145,12 +146,16 @@ define([
       return view;
     }
 
+    ,'getKeyframeIndex': function () {
+      return this.model.collection.indexOf(this.model);
+    }
+
     ,'isFirstKeyfame': function () {
-      return this.model.collection.indexOf(this.model) === 0;
+      return this.getKeyframeIndex() === 0;
     }
 
     ,'isRemovable': function () {
-      return this.model.collection.indexOf(this.model) > 1;
+      return this.getKeyframeIndex() > 1;
     }
 
     ,'onMillisecondIncrementerEnter': function () {
@@ -213,6 +218,16 @@ define([
         .append(this.millisecondIncrementer.$el);
 
       this.millisecondIncrementer.$el.focus();
+    }
+
+    ,'removeKeyframe': function () {
+      this.model.removeKeyframe();
+    }
+
+    ,'teardown': function () {
+      console.log(this)
+      // Needs to call .teardown on: easeSelectViewR, easeSelectViewX,
+      // easeSelectViewY, and each incrementerView
     }
 
   });

@@ -44,6 +44,13 @@ define(['src/app', 'src/constants'], function (app, constant) {
       publish(constant.ANIMATION_LENGTH_CHANGED);
     }
 
+    ,'removeKeyframe': function () {
+      // Need to destroy crosshairView and keyframeFormView, and signal to
+      // owner to remove this keyframe
+      this.keyframeFormView.teardown();
+      delete this.keyframeFormView;
+    }
+
     ,'setEasingString': function (newEasingString) {
       this.owner.modifyKeyframe(
           this.get('millisecond'), {}, { 'transform': newEasingString });

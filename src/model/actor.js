@@ -100,5 +100,9 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
       actor.moveKeyframe.apply(actor, arguments);
     }
 
+    ,'removeKeyframe': function (millisecond) {
+      throw 'Not implemented yet.';
+    }
+
   });
 });
