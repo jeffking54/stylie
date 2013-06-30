@@ -1,4 +1,4 @@
-define(['src/app'], function (app) {
+define(['src/app', 'src/utils'], function (app, util) {
   return Backbone.View.extend({
 
     'events': {
@@ -19,6 +19,11 @@ define(['src/app'], function (app) {
 
     ,'onChange': function (evt) {
       this.owner.updateEasingString();
+    }
+
+    ,'tearDown': function () {
+      this.remove();
+      util.deleteAllProperties(this);
     }
 
   });

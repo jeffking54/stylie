@@ -114,9 +114,9 @@ define([
     ,'initIncrementers': function () {
       // TODO: These should be direct members of this View, not properties of
       // an Object attached to the View.
-      this.incrementerViews = {};
       _.each([this.$inputX, this.$inputY, this.$inputR], function ($el) {
-        this.incrementerViews[$el.data('keyframeattr')] =
+        var keyframeAttr = $el.find('input').data('keyframeattr');
+        this['incrementerView' + keyframeAttr.toUpperCase()] =
             incrementerGeneratorHelper.call(this, $el);
       }, this);
 
@@ -220,14 +220,17 @@ define([
       this.millisecondIncrementer.$el.focus();
     }
 
+    // Kicks off a series of events that involves calling teardown
     ,'removeKeyframe': function () {
       this.model.removeKeyframe();
     }
 
-    ,'teardown': function () {
-      console.log(this)
-      // Needs to call .teardown on: easeSelectViewR, easeSelectViewX,
-      // easeSelectViewY, and each incrementerView
+    ,'tearDown': function () {
+      // Needs to call .teardown on: easeSelectView*, incrementerView*, all
+      // $elements, and this.remove
+      _.each(['X', 'Y', 'R'], function (axis) {
+        this['easeSelectView' + axis].tearDown();
+      }, this);
     }
 
   });

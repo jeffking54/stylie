@@ -47,7 +47,7 @@ define(['src/app', 'src/constants'], function (app, constant) {
     ,'removeKeyframe': function () {
       // Need to destroy crosshairView and keyframeFormView, and signal to
       // owner to remove this keyframe
-      this.keyframeFormView.teardown();
+      this.keyframeFormView.tearDown();
       delete this.keyframeFormView;
     }
 

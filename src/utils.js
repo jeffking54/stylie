@@ -30,6 +30,12 @@ define(['src/app'], function (app) {
       return parseFloat($el.attr('style').match(/rotate\((-*\d+)deg\)/)[1]);
     }
 
+    ,'deleteAllProperties': function (obj) {
+      _.each(obj, function (value, key) {
+        delete obj[key];
+      });
+    }
+
   };
 
 });
