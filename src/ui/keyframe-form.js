@@ -20,6 +20,7 @@ define([
       ,'onValReenter': _.bind(function (val) {
         this.model.set($el.data('keyframeattr'), +val);
         publish(constant.PATH_CHANGED);
+        // TODO: Should access actor through the owner model
         app.collection.actors.getCurrent(0).updateKeyframeCrosshairViews();
         app.kapi.update();
       }, this)
@@ -38,7 +39,7 @@ define([
       '<div>'
         ,'<label>'
           ,'<span>{{propertyLabel}}:</span>'
-          ,'<input class="quarter-width keyframe-attr-{{property}}" type="text" data-keyframeattr="{{property}}"></input>'
+          ,'<input class="quarter-width keyframe-attr-{{property}}" type="text" data-keyframeattr="{{property}}" value="{{value}}">'
         ,'</label>'
       ,'</div>'
     ].join('');
@@ -92,6 +93,7 @@ define([
         var template = Mustache.render(KEYFRAME_PROPERTY_TEMPLATE, {
           'property': property
           ,'propertyLabel': property.toUpperCase()
+          ,'value': this.model.get(property)
         });
 
         var $template = $(template);
@@ -112,18 +114,17 @@ define([
     }
 
     ,'initIncrementers': function () {
-      // TODO: These should be direct members of this View, not properties of
-      // an Object attached to the View.
       _.each([this.$inputX, this.$inputY, this.$inputR], function ($el) {
-        var keyframeAttr = $el.find('input').data('keyframeattr');
+        var $input = $el.find('input');
+        var keyframeAttr = $input.data('keyframeattr');
         this['incrementerView' + keyframeAttr.toUpperCase()] =
-            incrementerGeneratorHelper.call(this, $el);
+            incrementerGeneratorHelper.call(this, $input);
       }, this);
 
       if (!this.isFirstKeyfame()) {
         var template = Mustache.render(MILLISECOND_INPUT_TEMPLATE, {
-              'value': this.model.get('millisecond')
-            });
+          'value': this.model.get('millisecond')
+        });
         this.millisecondIncrementer = new IncrementerFieldView({
           '$el': $(template)
           ,'onEnterDown': _.bind(this.onMillisecondIncrementerEnter, this)
