@@ -231,6 +231,7 @@ define([
       // $elements, and this.remove
       _.each(['X', 'Y', 'R'], function (axis) {
         this['easeSelectView' + axis].tearDown();
+        this['incrementerView' + axis].tearDown();
       }, this);
     }
 

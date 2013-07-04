@@ -1,4 +1,4 @@
-define(function () {
+define(['src/utils'], function (util) {
 
   // Bindable event handlers:
   //   onArrowUp()
@@ -33,6 +33,11 @@ define(function () {
       } else if (which === 13 && this.onEnterDown) { // enter
         this.onEnterDown(evt);
       }
+    }
+
+    ,'tearDown': function () {
+      this.remove();
+      util.deleteAllProperties(this);
     }
 
   });
