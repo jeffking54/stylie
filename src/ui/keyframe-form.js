@@ -229,8 +229,6 @@ define([
     }
 
     ,'tearDown': function () {
-      // Needs to call .teardown on: easeSelectView*, incrementerView*, all
-      // $elements, and this.remove
       _.each(['X', 'Y', 'R'], function (axis) {
         this['easeSelectView' + axis].tearDown();
         this['incrementerView' + axis].tearDown();
@@ -240,6 +238,7 @@ define([
       this.millisecondIncrementer.tearDown();
       this.$header.remove();
       this.$pinnedButtonArray.remove();
+      this.remove();
       util.deleteAllProperties(this);
     }
 
