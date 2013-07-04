@@ -49,6 +49,9 @@ define(['src/app', 'src/constants'], function (app, constant) {
       // owner to remove this keyframe
       this.keyframeFormView.tearDown();
       delete this.keyframeFormView;
+
+      this.crosshairView.tearDown();
+      delete this.crosshairView;
     }
 
     ,'setEasingString': function (newEasingString) {

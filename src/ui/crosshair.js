@@ -112,6 +112,11 @@ define(['src/app', 'src/constants', 'src/utils'],
       this.$el.css('transform', 'rotate(' + newRotation + 'deg)');
     }
 
+    ,'tearDown': function () {
+      this.remove();
+      util.deleteAllProperties(this);
+    }
+
   });
 
 });
