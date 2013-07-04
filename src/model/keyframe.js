@@ -52,6 +52,8 @@ define(['src/app', 'src/constants'], function (app, constant) {
 
       this.crosshairView.tearDown();
       delete this.crosshairView;
+
+      this.owner.removeKeyframe(this.get('millisecond'));
     }
 
     ,'setEasingString': function (newEasingString) {
