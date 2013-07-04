@@ -1,6 +1,7 @@
 define([
     'src/app'
     ,'src/constants'
+    ,'src/utils'
     ,'src/ui/incrementer-field'
     ,'src/ui/ease-select'
 
@@ -8,6 +9,7 @@ define([
 
     app
     ,constant
+    ,util
     ,IncrementerFieldView
     ,EaseSelectView
 
@@ -232,7 +234,13 @@ define([
       _.each(['X', 'Y', 'R'], function (axis) {
         this['easeSelectView' + axis].tearDown();
         this['incrementerView' + axis].tearDown();
+        this['$input' + axis].remove();
       }, this);
+
+      this.millisecondIncrementer.tearDown();
+      this.$header.remove();
+      this.$pinnedButtonArray.remove();
+      util.deleteAllProperties(this);
     }
 
   });
