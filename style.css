@@ -385,6 +385,10 @@ canvas {
       cursor: auto;
     }
 
+    #control-pane .keyframe:nth-child(2) .pinned-button-array {
+      display: none;
+    }
+
     #control-pane .keyframe .pinned-button-array {
       margin: -28px 0 12px 0;
     }

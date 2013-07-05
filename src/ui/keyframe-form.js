@@ -168,7 +168,7 @@ define([
     }
 
     ,'isRemovable': function () {
-      return this.getKeyframeIndex() > 1;
+      return this.getKeyframeIndex() > 0;
     }
 
     ,'onMillisecondIncrementerBlur': function (evt) {
