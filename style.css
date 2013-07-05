@@ -377,6 +377,14 @@ canvas {
       margin-bottom: 12px;
     }
 
+    #control-pane .keyframe h3 {
+      cursor: pointer;
+    }
+
+    #control-pane .keyframe:first-child h3 {
+      cursor: auto;
+    }
+
     #control-pane .keyframe .pinned-button-array {
       margin: -28px 0 12px 0;
     }

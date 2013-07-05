@@ -127,9 +127,19 @@ define([
         var template = Mustache.render(MILLISECOND_INPUT_TEMPLATE, {
           'value': this.model.get('millisecond')
         });
+
         this.millisecondIncrementer = new IncrementerFieldView({
           '$el': $(template)
-          ,'onEnterDown': _.bind(this.onMillisecondIncrementerEnter, this)
+          ,'onBlur': _.bind(this.onMillisecondIncrementerBlur, this)
+
+          // Defer to the blur event handler for all code paths that call
+          // onMillisecondIncrementerBlur.  It's a browser-level event and
+          // inserts its handler into the JavaScript thread synchronously,
+          // creating null pointers that jQuery is not expecting in
+          // jQuery#remove.
+          ,'onEnterDown': _.bind(function () {
+             this.millisecondIncrementer.$el.trigger('blur');
+          }, this)
         });
       }
     }
@@ -161,7 +171,7 @@ define([
       return this.getKeyframeIndex() > 1;
     }
 
-    ,'onMillisecondIncrementerEnter': function () {
+    ,'onMillisecondIncrementerBlur': function (evt) {
       this.millisecondIncrementer.$el.detach();
       var newMillisecond = this.millisecondIncrementer.$el.val();
       this.updateMillisecond(newMillisecond);
@@ -223,7 +233,7 @@ define([
       this.millisecondIncrementer.$el.focus();
     }
 
-    // Kicks off a series of events that involves calling teardown
+    // Kicks off a series of events that involves calling tearDown
     ,'removeKeyframe': function () {
       this.model.removeKeyframe();
     }

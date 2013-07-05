@@ -2,7 +2,11 @@ define(['src/app'], function (app) {
 
   return {
 
-    'pxToNumber': function (px) {
+    'noop': function () {
+      // NOOP!
+    }
+
+    ,'pxToNumber': function (px) {
       return parseInt(px, 10);
     }
 
