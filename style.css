@@ -508,14 +508,14 @@ canvas {
   }
 
 #keyframe-controls {
-  margin-top: 36px;
+  margin-top: 26px;
   overflow: visible;
 }
 
   #keyframe-controls > .pinned-button-array {
     position: absolute;
     right: -10px;
-    top: -34px;
+    top: -26px;
   }
 
   #keyframe-controls .controls-wrapper {
