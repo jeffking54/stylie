@@ -101,7 +101,9 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
     }
 
     ,'removeKeyframe': function (millisecond) {
-      throw 'Not implemented yet.';
+      this.keyframeCollection.removeKeyframe(millisecond);
+      this.get('actor').removeKeyframe(millisecond);
+      publish(constant.PATH_CHANGED);
     }
 
   });

@@ -37,5 +37,9 @@ define(['src/app', 'src/model/keyframe'], function (app, KeyframeModel) {
       });
     }
 
+    ,'removeKeyframe': function (millisecond) {
+      this.remove(this.findWhere({'millisecond': millisecond}));
+    }
+
   });
 });
