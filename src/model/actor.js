@@ -25,10 +25,6 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
       return this.keyframeCollection.length;
     }
 
-    ,'moveLastKeyframe': function (to) {
-      throw 'Remove this!';
-    }
-
     ,'getAttrsForKeyframe': function (index) {
       return this.keyframeCollection.at(index).getAttrs();
     }

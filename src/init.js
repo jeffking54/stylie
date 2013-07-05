@@ -50,17 +50,6 @@ require([
     ,'$triggerEl': $('#help-trigger')
   });
 
-  app.view.durationField = new IncrementerFieldView({
-    '$el': $('#duration')
-    ,'onValReenter': function (val) {
-      if (!isNaN(val)) {
-        var validVal = Math.abs(val);
-        app.collection.actors.getCurrent().moveLastKeyframe(validVal);
-      }
-    }
-  });
-
-  app.view.durationField.$el.val(constant.INITIAL_ANIMATION_DURATION);
   app.$el.animationIteration = $('#iterations');
 
   var halfCrossHairHeight = $('#crosshairs .crosshair:first').height() / 2;
