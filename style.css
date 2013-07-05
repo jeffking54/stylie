@@ -363,9 +363,6 @@ canvas {
 
     #control-pane .keyframe:first-child span {
       float:none;
-      /* padding-right should be kept in sync with that of
-       * `#control-pane span` */
-      padding-right: 12px;
     }
 
     #control-pane .keyframe:first-child label {
@@ -408,7 +405,6 @@ canvas {
     }
 
   #control-pane .pinned-button-array {
-    float: right;
     margin-bottom: -12px;
     overflow: auto;
   }
@@ -499,7 +495,7 @@ canvas {
   }
 
   #control-pane input.quarter-width {
-    width: 40px;
+    width: 44px;
   }
 
 #motion-controls {
@@ -512,9 +508,20 @@ canvas {
   }
 
 #keyframe-controls {
-  overflow: auto;
-  max-height: 400px;
+  margin-top: 36px;
+  overflow: visible;
 }
+
+  #keyframe-controls > .pinned-button-array {
+    position: absolute;
+    right: -10px;
+    top: -34px;
+  }
+
+  #keyframe-controls .controls-wrapper {
+    max-height: 400px;
+    overflow: auto;
+  }
 
   #keyframe-controls hr {
     margin-top: 12px;
@@ -632,6 +639,7 @@ canvas {
 }
 
   .tabs-contents > li {
+    position: relative;
     width: 300px;
   }
 
