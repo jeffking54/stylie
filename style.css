@@ -403,6 +403,10 @@ canvas {
       width: 20px;
     }
 
+    #control-pane .keyframe .property-field span {
+      display: inline-block;
+    }
+
   #control-pane .pinned-button-array {
     float: right;
     margin-bottom: -12px;
@@ -495,15 +499,15 @@ canvas {
   }
 
   #control-pane input.quarter-width {
-    width: 44px;
+    width: 40px;
   }
 
-#tween-controls {
+#motion-controls {
   float: left;
   padding: 0;
 }
 
-  #tween-controls input.error {
+  #motion-controls input.error {
     background: #f55;
   }
 

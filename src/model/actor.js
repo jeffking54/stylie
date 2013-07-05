@@ -26,7 +26,7 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
     }
 
     ,'moveLastKeyframe': function (to) {
-      this.keyframeCollection.last().moveKeyframe(to);
+      throw 'Remove this!';
     }
 
     ,'getAttrsForKeyframe': function (index) {
@@ -95,9 +95,14 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
       actor.modifyKeyframe.apply(actor, arguments);
     }
 
+    ,'hasKeyframeAt': function (millisecond) {
+      var actor = this.get('actor');
+      return actor.hasKeyframeAt.apply(actor, arguments);
+    }
+
     ,'moveKeyframe': function (from, to) {
       var actor = this.get('actor');
-      actor.moveKeyframe.apply(actor, arguments);
+      return actor.moveKeyframe.apply(actor, arguments);
     }
 
     ,'removeKeyframe': function (millisecond) {

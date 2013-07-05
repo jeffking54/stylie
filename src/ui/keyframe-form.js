@@ -38,7 +38,7 @@ define([
     ].join('');
 
   var KEYFRAME_PROPERTY_TEMPLATE = [
-      '<div>'
+      '<div class="property-field">'
         ,'<label>'
           ,'<span>{{propertyLabel}}:</span>'
           ,'<input class="quarter-width keyframe-attr-{{property}}" type="text" data-keyframeattr="{{property}}" value="{{value}}">'
@@ -173,10 +173,21 @@ define([
 
     ,'onMillisecondIncrementerBlur': function (evt) {
       this.millisecondIncrementer.$el.detach();
-      var newMillisecond = this.millisecondIncrementer.$el.val();
-      this.updateMillisecond(newMillisecond);
+      var millisecond = this.validateMillisecond(
+          this.millisecondIncrementer.$el.val());
+
+      if (this.model.owner.hasKeyframeAt(millisecond)) {
+        if (millisecond !== this.model.get('millisecond')) {
+          publish(constant.ALERT_ERROR, [
+              'There is already a keyframe at millisecond '
+              + millisecond + '.']);
+        }
+      } else {
+        this.model.moveKeyframe(millisecond);
+        this.owner.model.refreshKeyframeOrder();
+      }
+
       this.renderHeader();
-      this.owner.model.refreshKeyframeOrder();
       this.isEditingMillisecond = false;
     }
 
@@ -212,11 +223,10 @@ define([
       app.kapi.update();
     }
 
-    ,'updateMillisecond': function (newMillisecond) {
-      if (!isNaN(newMillisecond)) {
-        var validMillisecond = Math.abs(+newMillisecond);
-        this.model.moveKeyframe(validMillisecond);
-      }
+    ,'validateMillisecond': function (millisecond) {
+      return isNaN(millisecond)
+        ? 0
+        : Math.abs(+millisecond);
     }
 
     ,'editMillisecond': function () {
@@ -230,7 +240,9 @@ define([
         .empty()
         .append(this.millisecondIncrementer.$el);
 
-      this.millisecondIncrementer.$el.focus();
+      this.millisecondIncrementer.$el
+        .val(this.model.get('millisecond'))
+        .focus();
     }
 
     // Kicks off a series of events that involves calling tearDown
