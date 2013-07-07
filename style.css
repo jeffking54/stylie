@@ -388,6 +388,7 @@ canvas {
 
     #control-pane .keyframe .pinned-button-array {
       margin: -28px 0 12px 0;
+      position: relative;
     }
 
     #control-pane .keyframe div:last-child {
@@ -400,13 +401,18 @@ canvas {
       width: 20px;
     }
 
+    #control-pane .keyframe .pinned-button-array button,
+    #control-pane .keyframe .pinned-button-array span {
+      line-height: 23px;
+    }
+
     #control-pane .keyframe .property-field span {
       display: inline-block;
     }
 
   #control-pane .pinned-button-array {
     margin-bottom: -12px;
-    overflow: auto;
+    overflow: hidden;
   }
 
     #control-pane .pinned-button-array label {
@@ -419,9 +425,8 @@ canvas {
     }
 
     #control-pane .pinned-button-array span {
-      padding-right: 6px;
+      padding-right: 34px;
       position: relative;
-      top: -2px;
       visibility: hidden;
     }
 
@@ -438,6 +443,9 @@ canvas {
       background: none;
       border: none;
       padding: 0;
+      position: absolute;
+      right: 6px;
+      top: 0;
     }
 
   #control-pane span {
@@ -516,6 +524,7 @@ canvas {
     position: absolute;
     right: -10px;
     top: -26px;
+    width: 100%;
   }
 
   #keyframe-controls .controls-wrapper {
