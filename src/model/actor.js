@@ -71,6 +71,24 @@ define(['src/app', 'src/constants', 'src/collection/keyframes'
       publish(constant.KEYFRAME_ORDER_CHANGED);
     }
 
+    ,'appendNewKeyframeWithDefaultProperties': function () {
+      var lastKeyframeIndex = this.getLength() - 1;
+      var lastKeyframeMillisecond =
+          this.getMillisecondOfKeyframe(lastKeyframeIndex);
+      var lastKeyframeAttrs =
+          this.getAttrsForKeyframe(lastKeyframeIndex);
+      var newKeyframeMillisecond =
+          lastKeyframeMillisecond + constant.NEW_KEYFRAME_MILLISECOND_OFFSET;
+
+      this.keyframe(newKeyframeMillisecond, {
+        'x': lastKeyframeAttrs.x + constant.NEW_KEYFRAME_X_OFFSET
+        ,'y': lastKeyframeAttrs.y
+        ,'r': 0
+      }, 'linear linear linear');
+
+      app.view.canvas.backgroundView.update();
+    }
+
     // Kapi encapsulation methods
 
     /**

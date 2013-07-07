@@ -30,22 +30,7 @@ define(['src/app', 'src/constants', 'src/ui/keyframe-form'],
     }
 
     ,'createKeyframe': function (evt) {
-      var model = this.model;
-      var lastKeyframeIndex = model.getLength() - 1;
-      var lastKeyframeMillisecond =
-          model.getMillisecondOfKeyframe(lastKeyframeIndex);
-      var lastKeyframeAttrs =
-          model.getAttrsForKeyframe(lastKeyframeIndex);
-      var newKeyframeMillisecond =
-          lastKeyframeMillisecond + constant.NEW_KEYFRAME_MILLISECOND_OFFSET;
-
-      model.keyframe(newKeyframeMillisecond, {
-        'x': lastKeyframeAttrs.x + constant.NEW_KEYFRAME_X_OFFSET
-        ,'y': lastKeyframeAttrs.y
-        ,'r': 0
-      }, 'linear linear linear');
-
-      app.view.canvas.backgroundView.update();
+      this.model.appendNewKeyframeWithDefaultProperties();
     }
 
     ,'reorderKeyframeFormViews': function () {
